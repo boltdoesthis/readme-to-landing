@@ -58,3 +58,8 @@ MIT — Indie Agent Ship Kit / indieagentkit.
 ## Brand
 
 Public brand only: **Indie Agent Ship Kit** / **indieagentkit**.
+
+## Need it done for you?
+
+Fixed-price micro-help (landing pages, launch packs, skill packs): https://boltdoesthis.github.io/indie-agent-services/
+Email: boltdoesthis@gmail.com
