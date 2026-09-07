@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>README → Landing — Indie Agent Ship Kit</title>
+  <meta name="description" content="Paste a README or product blurb. Get a clean, downloadable landing page. Client-side only. Free tool from Indie Agent Ship Kit." />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1e2330;
+      --border: #2a3142;
+      --text: #e8ecf4;
+      --muted: #9aa3b5;
+      --accent: #6ee7b7;
+      --accent-dim: #34d399;
+      --warn: #fbbf24;
+      --danger: #f87171;
+      --radius: 12px;
+      --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: radial-gradient(1200px 600px at 10% -10%, #1a2740 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #13281f 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-dim); }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 52ch;
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(110, 231, 183, 0.08);
+      border: 1px solid rgba(110, 231, 183, 0.25);
+      padding: 4px 10px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 520px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .panel-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      background: #0c0e13;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(110, 231, 183, 0.55);
+      box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.12);
+    }
+
+    textarea {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.45;
+      resize: vertical;
+      min-height: 280px;
+      flex: 1;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 560px) {
+      .row { grid-template-columns: 1fr; }
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 9px 14px;
+      font-size: 0.88rem;
+      transition: background 0.15s, border-color 0.15s, transform 0.05s;
+    }
+
+    button:hover { border-color: #3d4660; background: #242a3a; }
+    button:active { transform: translateY(1px); }
+
+    button.primary {
+      background: linear-gradient(180deg, #3dd68c, #22b87a);
+      color: #062015;
+      border-color: transparent;
+      font-weight: 650;
+    }
+
+    button.primary:hover {
+      filter: brightness(1.05);
+      background: linear-gradient(180deg, #4ae09a, #28c686);
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    .hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .preview-frame-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+    }
+
+    iframe#preview {
+      width: 100%;
+      flex: 1;
+      min-height: 420px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .stats strong { color: var(--text); font-weight: 600; }
+
+    footer {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      justify-content: space-between;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #123528;
+      color: var(--accent);
+      border: 1px solid rgba(110, 231, 183, 0.35);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 50;
+    }
+
+    .toast.show { opacity: 1; }
+
+    details.help {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 18px;
+    }
+
+    details.help summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    details.help p, details.help ul {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin: 10px 0 0;
+    }
+
+    details.help code {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      background: #0c0e13;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <span class="badge">Free micro-tool · client-side only</span>
+        <h1>README → Landing</h1>
+        <p>Paste a README or product blurb. Get a clean, downloadable single-page landing HTML. No accounts, no paid APIs, nothing leaves your browser.</p>
+      </div>
+    </header>
+
+    <details class="help">
+      <summary>What this extracts (and how to get better results)</summary>
+      <p>The generator looks for a title (<code># Heading</code>), short description, bullet feature lists, a price hint (<code>$29</code>), and a CTA link (first markdown/http link or a Gumroad-style URL). Plain paragraphs become the hero body. Use a short README with a clear H1, 3–6 bullets, and one link for best results.</p>
+      <ul>
+        <li>Works offline after first load — all parsing is local JavaScript.</li>
+        <li>Download the HTML and host it on GitHub Pages, Cloudflare Pages, Netlify, or any static host.</li>
+        <li>Part of <strong>Indie Agent Ship Kit</strong> / indieagentkit free tools.</li>
+      </ul>
+    </details>
+
+    <div class="layout">
+      <section class="panel" aria-label="Input">
+        <div class="panel-head">
+          <h2>Input</h2>
+          <div class="actions">
+            <button type="button" class="ghost" id="btnSample">Load sample</button>
+            <button type="button" class="ghost" id="btnClear">Clear</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div>
+              <label for="productName">Product name override (optional)</label>
+              <input type="text" id="productName" placeholder="Leave blank to use H1 / first line" />
+            </div>
+            <div>
+              <label for="ctaLabel">CTA button label</label>
+              <input type="text" id="ctaLabel" value="Get the pack" />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="ctaUrl">CTA URL (optional override)</label>
+              <input type="text" id="ctaUrl" placeholder="https://… or leave blank to auto-detect" />
+            </div>
+            <div>
+              <label for="theme">Theme</label>
+              <select id="theme">
+                <option value="ink">Ink (dark)</option>
+                <option value="paper">Paper (light)</option>
+                <option value="mint">Mint accent</option>
+              </select>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;">
+            <label for="source">README or product blurb</label>
+            <textarea id="source" spellcheck="false" placeholder="# My Product&#10;&#10;One-line pitch.&#10;&#10;## Features&#10;- Fast&#10;- Simple&#10;- Useful&#10;&#10;Buy: https://example.com"></textarea>
+          </div>
+          <div class="actions">
+            <button type="button" class="primary" id="btnGenerate">Generate landing page</button>
+            <button type="button" id="btnDownload" disabled>Download HTML</button>
+            <button type="button" class="ghost" id="btnCopy" disabled>Copy HTML</button>
+          </div>
+          <p class="hint">Tip: paste Markdown or plain text. Generation is instant and private.</p>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Preview">
+        <div class="panel-head">
+          <h2>Live preview</h2>
+          <div class="stats" id="stats" aria-live="polite"></div>
+        </div>
+        <div class="panel-body preview-frame-wrap">
+          <iframe id="preview" title="Landing page preview" sandbox="allow-same-origin"></iframe>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <span>Indie Agent Ship Kit · free tools · MIT</span>
+      <span>No telemetry · works on GitHub Pages &amp; Cloudflare Pages</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const source = $("source");
+  const productName = $("productName");
+  const ctaLabel = $("ctaLabel");
+  const ctaUrl = $("ctaUrl");
+  const theme = $("theme");
+  const preview = $("preview");
+  const stats = $("stats");
+  const btnGenerate = $("btnGenerate");
+  const btnDownload = $("btnDownload");
+  const btnCopy = $("btnCopy");
+  const btnSample = $("btnSample");
+  const btnClear = $("btnClear");
+  const toast = $("toast");
+
+  let lastHtml = "";
+
+  const SAMPLE = `# Indie Agent Ship Kit
+
+Skills, SOPs, and templates so solo founders can ship a small digital product with Cursor or Claude Code in a week.
+
+Not a course. Not a community. A downloadable pack you attach to your agent and run.
+
+## What's inside
+
+- Reusable agent skills for ideation, listing copy, outreach, and pricing
+- Short SOPs for a 7-day ship and anonymous brand hygiene
+- Fill-in templates (Gumroad draft, outreach messages, cost tracker)
+- Worked examples of good agent output
+
+## Who it's for
+
+Solo founders and indie hackers already using Cursor Agent or Claude Code who keep reinventing prompts every launch.
+
+## Price
+
+$29 (pay-what-you-want floor $19)
+
+Get early access: https://github.com/indieagentkit/indie-agent-ship-kit
+`;
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove("show"), 1800);
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function stripMdInline(s) {
+    return s
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .replace(/[*_`~]/g, "")
+      .trim();
+  }
+
+  function extractLink(text) {
+    const md = text.match(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/);
+    if (md) return { label: md[1], url: md[2] };
+    const bare = text.match(/https?:\/\/[^\s)>]+/);
+    if (bare) return { label: null, url: bare[0].replace(/[.,;]+$/, "") };
+    return null;
+  }
+
+  function parseSource(raw) {
+    const lines = raw.replace(/\r\n/g, "\n").split("\n");
+    let title = "";
+    const paragraphs = [];
+    const features = [];
+    let price = "";
+    let detectedLink = null;
+    let buf = [];
+
+    function flushPara() {
+      if (!buf.length) return;
+      const text = buf.join(" ").trim();
+      buf = [];
+      if (!text) return;
+      const link = extractLink(text);
+      if (link && !detectedLink) detectedLink = link;
+      const clean = stripMdInline(text);
+      if (!clean) return;
+      const priceMatch = clean.match(/\$\d+(?:\.\d{2})?/);
+      if (priceMatch && !price) price = priceMatch[0];
+      if (/^(price|pricing)\b/i.test(clean) && priceMatch) {
+        price = priceMatch[0];
+        return;
+      }
+      paragraphs.push(clean);
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const trimmed = line.trim();
+
+      if (!trimmed) {
+        flushPara();
+        continue;
+      }
+
+      const linkOnLine = extractLink(trimmed);
+      if (linkOnLine && !detectedLink) detectedLink = linkOnLine;
+
+      const h1 = trimmed.match(/^#\s+(.+)$/);
+      if (h1 && !title) {
+        flushPara();
+        title = stripMdInline(h1[1]);
+        continue;
+      }
+
+      const h2 = trimmed.match(/^#{2,6}\s+(.+)$/);
+      if (h2) {
+        flushPara();
+        continue;
+      }
+
+      const bullet = trimmed.match(/^[-*+]\s+(.+)$/) || trimmed.match(/^\d+\.\s+(.+)$/);
+      if (bullet) {
+        flushPara();
+        const item = stripMdInline(bullet[1]);
+        if (item) features.push(item);
+        continue;
+      }
+
+      if (/^---+$/.test(trimmed) || /^\*\*\*+$/.test(trimmed)) {
+        flushPara();
+        continue;
+      }
+
+      buf.push(trimmed);
+    }
+    flushPara();
+
+    const tagline = paragraphs[0] || "A focused digital product for indie builders.";
+    const body = paragraphs.slice(1, 4);
+
+    return {
+      title: title || "Untitled product",
+      tagline,
+      body,
+      features: features.slice(0, 8),
+      price,
+      link: detectedLink,
+    };
+  }
+
+  function themeVars(name) {
+    if (name === "paper") {
+      return {
+        bg: "#f6f4ef",
+        text: "#1a1a1a",
+        muted: "#5c5c5c",
+        card: "#ffffff",
+        border: "#e4dfd4",
+        accent: "#0f766e",
+        accentText: "#ffffff",
+        heroGlow: "rgba(15,118,110,0.08)",
+      };
+    }
+    if (name === "mint") {
+      return {
+        bg: "#07140f",
+        text: "#e8fff5",
+        muted: "#8fb9a8",
+        card: "#0c1f18",
+        border: "#1d3b2f",
+        accent: "#34d399",
+        accentText: "#062015",
+        heroGlow: "rgba(52,211,153,0.12)",
+      };
+    }
+    return {
+      bg: "#0b0d12",
+      text: "#eef1f7",
+      muted: "#9aa3b5",
+      card: "#141824",
+      border: "#2a3142",
+      accent: "#818cf8",
+      accentText: "#0b0d12",
+      heroGlow: "rgba(129,140,248,0.14)",
+    };
+  }
+
+  function buildLanding(parsed, opts) {
+    const t = themeVars(opts.theme);
+    const name = (opts.nameOverride && opts.nameOverride.trim()) || parsed.title;
+    const ctaText = (opts.ctaLabel && opts.ctaLabel.trim()) || "Get started";
+    const url =
+      (opts.ctaUrl && opts.ctaUrl.trim()) ||
+      (parsed.link && parsed.link.url) ||
+      "#";
+
+    const featuresHtml = parsed.features.length
+      ? `<ul class="features">${parsed.features
+          .map((f) => `<li>${escapeHtml(f)}</li>`)
+          .join("")}</ul>`
+      : "";
+
+    const bodyHtml = parsed.body
+      .map((p) => `<p class="body">${escapeHtml(p)}</p>`)
+      .join("");
+
+    const priceHtml = parsed.price
+      ? `<p class="price">${escapeHtml(parsed.price)}</p>`
+      : "";
+
+    const year = new Date().getFullYear();
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapeHtml(name)}</title>
+  <meta name="description" content="${escapeHtml(parsed.tagline)}" />
+  <style>
+    :root {
+      --bg: ${t.bg};
+      --text: ${t.text};
+      --muted: ${t.muted};
+      --card: ${t.card};
+      --border: ${t.border};
+      --accent: ${t.accent};
+      --accent-text: ${t.accentText};
+      --glow: ${t.heroGlow};
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(900px 420px at 50% -10%, var(--glow), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 22px 48px;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      font-weight: 650;
+    }
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 2.75rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+    }
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin: 0 0 22px;
+      max-width: 42ch;
+    }
+    .body {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .card {
+      margin-top: 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 22px 18px;
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+    .features {
+      margin: 0;
+      padding: 0 0 0 1.15rem;
+    }
+    .features li {
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 28px;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: var(--accent-text);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+    }
+    .cta:hover { filter: brightness(1.06); }
+    .price {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+    footer {
+      margin-top: 56px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="eyebrow">Digital product</div>
+    <h1>${escapeHtml(name)}</h1>
+    <p class="tagline">${escapeHtml(parsed.tagline)}</p>
+    ${bodyHtml}
+    ${
+      featuresHtml
+        ? `<section class="card"><h2>What you get</h2>${featuresHtml}</section>`
+        : ""
+    }
+    <div class="cta-row">
+      <a class="cta" href="${escapeHtml(url)}">${escapeHtml(ctaText)}</a>
+      ${priceHtml}
+    </div>
+    <footer>
+      <span>${escapeHtml(name)} · landing generated with README → Landing (Indie Agent Ship Kit)</span>
+      <span> · ${year}</span>
+    </footer>
+  </main>
+</body>
+</html>`;
+  }
+
+  function generate() {
+    const raw = source.value.trim();
+    if (!raw) {
+      showToast("Paste a README or blurb first");
+      return;
+    }
+    const parsed = parseSource(raw);
+    lastHtml = buildLanding(parsed, {
+      nameOverride: productName.value,
+      ctaLabel: ctaLabel.value,
+      ctaUrl: ctaUrl.value,
+      theme: theme.value,
+    });
+    preview.srcdoc = lastHtml;
+    btnDownload.disabled = false;
+    btnCopy.disabled = false;
+    stats.innerHTML =
+      `<span><strong>${parsed.features.length}</strong> features</span>` +
+      `<span><strong>${parsed.body.length + 1}</strong> copy blocks</span>` +
+      (parsed.price ? `<span>price <strong>${escapeHtml(parsed.price)}</strong></span>` : "") +
+      `<span><strong>${Math.round(lastHtml.length / 1024)} KB</strong></span>`;
+    showToast("Landing page ready");
+  }
+
+  function download() {
+    if (!lastHtml) return;
+    const name =
+      (productName.value.trim() || parseSource(source.value).title || "landing")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "landing";
+    const blob = new Blob([lastHtml], { type: "text/html;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${name}-landing.html`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    showToast("Downloaded HTML");
+  }
+
+  async function copyHtml() {
+    if (!lastHtml) return;
+    try {
+      await navigator.clipboard.writeText(lastHtml);
+      showToast("HTML copied");
+    } catch {
+      showToast("Copy failed — use Download instead");
+    }
+  }
+
+  btnGenerate.addEventListener("click", generate);
+  btnDownload.addEventListener("click", download);
+  btnCopy.addEventListener("click", copyHtml);
+  btnSample.addEventListener("click", () => {
+    source.value = SAMPLE;
+    productName.value = "";
+    ctaLabel.value = "Get the pack";
+    ctaUrl.value = "";
+    generate();
+  });
+  btnClear.addEventListener("click", () => {
+    source.value = "";
+    productName.value = "";
+    lastHtml = "";
+    preview.srcdoc = "";
+    stats.innerHTML = "";
+    btnDownload.disabled = true;
+    btnCopy.disabled = true;
+  });
+
+  ["input", "change"].forEach((ev) => {
+    theme.addEventListener(ev, () => {
+      if (source.value.trim() && lastHtml) generate();
+    });
+  });
+
+  // Empty preview placeholder
+  preview.srcdoc = `<!DOCTYPE html><html><body style="font-family:system-ui;color:#667;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fafafa"><p style="text-align:center;max-width:28ch">Paste a README and hit Generate to preview your landing page here.</p></body></html>`;
+})();
+  </script>
+</body>
+</html>
