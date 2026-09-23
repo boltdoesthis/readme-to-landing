@@ -1,15 +1,23 @@
-# README → Landing
+# README to Landing
 
-Free micro-tool from **Indie Agent Ship Kit** (`indieagentkit`).
+Free micro-tool from **Indie Agent Kit** (`boltdoesthis`).
 
-Paste a README or product blurb → get a clean, single-page landing HTML you can download and host. Everything runs in the browser. No build step, no accounts, no paid APIs.
+Paste a README or product blurb and get a clean, single-page landing HTML you can download and host. Everything runs in the browser. No build step, no accounts, no paid APIs.
+
+**Live demo:** https://boltdoesthis.github.io/readme-to-landing/
+
+## Need it done for you?
+
+Fixed-price micro-help (landing pages, launch packs, skill packs): https://boltdoesthis.github.io/indie-agent-services/
+
+Email: [boltdoesthis@gmail.com](mailto:boltdoesthis@gmail.com)
 
 ## Features
 
 - Client-side Markdown/plain-text parsing (title, tagline, bullets, price, CTA link)
 - Live preview with three themes (Ink, Paper, Mint)
 - Download or copy the generated HTML
-- Static files only — works on GitHub Pages, Cloudflare Pages, Netlify, or any static host
+- Static files only. Works on GitHub Pages, Cloudflare Pages, Netlify, or any static host
 - Offline-capable after first load
 
 ## Files
@@ -37,10 +45,10 @@ Then visit `http://localhost:8080`.
 
 ### GitHub Pages
 
-1. Create a public repo (e.g. `readme-to-landing`) under your anonymous brand org/user.
+1. Create a public repo (e.g. `readme-to-landing`) under your brand user.
 2. Push this folder as the repo root (or put files in `/docs` and set Pages source to `/docs`).
 3. Settings → Pages → Deploy from branch → `main` / root (or `/docs`).
-4. Site URL: `https://<user-or-org>.github.io/readme-to-landing/`
+4. Site URL: `https://<user>.github.io/readme-to-landing/`
 
 ### Cloudflare Pages
 
@@ -49,17 +57,10 @@ Then visit `http://localhost:8080`.
 3. Framework preset: **None**. Build command: empty. Output directory: `/` (repo root).
 4. Deploy. Optional: attach a custom domain later.
 
-Full dual-asset publish steps: see `/workspace/DEPLOY.md` in the ship workspace (or the copy you keep with your release notes).
-
 ## License
 
-MIT — Indie Agent Ship Kit / indieagentkit.
+MIT. Indie Agent Kit / boltdoesthis.
 
 ## Brand
 
-Public brand only: **Indie Agent Ship Kit** / **indieagentkit**.
-
-## Need it done for you?
-
-Fixed-price micro-help (landing pages, launch packs, skill packs): https://boltdoesthis.github.io/indie-agent-services/
-Email: boltdoesthis@gmail.com
+Public brand only: **Indie Agent Kit** / **boltdoesthis**.
