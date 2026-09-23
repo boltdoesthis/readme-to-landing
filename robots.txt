@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://boltdoesthis.github.io/readme-to-landing/sitemap.xml
